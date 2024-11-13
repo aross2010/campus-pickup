@@ -12,3 +12,131 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+enum SchoolYear {
+  Freshman
+  Sophomore
+  Junior
+  Senior
+  Graduate
+}
+
+enum Sport {
+  Badminton
+  Baseball
+  Basketball
+  Cricket
+  FlagFootball
+  Frisbee
+  Golf
+  PickleBall
+  Running
+  Soccer
+  Softball
+  Swimming
+  TableTennis
+  Tennis
+  Volleyball
+}
+
+enum SkillLevel {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+model School {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  location    String
+  emailDomain String
+  logo        String
+  users       User[]
+  userCount   Int    @default(0)
+}
+
+model User {
+  id                            String     @id @default(auto()) @map("_id") @db.ObjectId
+  firstName                     String
+  lastName                      String
+  email                         String     @unique
+  emailVerified                 Boolean    @default(false)
+  password                      String
+  role                          String     @default("USER")
+  createdAt                     DateTime   @default(now())
+  updatedAt                     DateTime   @updatedAt
+  profileImage                  String?
+  bio                           String?
+  favoriteSports                Sport[]
+  school                        School     @relation(fields: [schoolId], references: [id])
+  schoolId                      String     @db.ObjectId
+  schoolYear                    SchoolYear
+  eventConfirmationNotification Boolean    @default(true)
+  discussionReplyNotification   Boolean    @default(true)
+
+  eventsCreated Event[]          @relation("eventsCreated") // Events the user has created
+  eventsJoined  EventPlayer[] // Events the user has joined (via EventPlayer join table)
+  eventsWaiting WaitlistPlayer[] // Events the user is on the waitlist for (via WaitlistPlayer join table)
+  comments      Comment[] // Comments the user has made
+}
+
+model Event {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  date           DateTime
+  createdAt      DateTime         @default(now())
+  sport          Sport
+  skillLevel     SkillLevel
+  location       String
+  creator        User             @relation("eventsCreated", fields: [creatorId], references: [id])
+  creatorId      String           @db.ObjectId
+  maxPlayers     Int
+  playersJoined  EventPlayer[]
+  playersWaiting WaitlistPlayer[]
+  discussion     Discussion[]     @relation("eventDiscussion")
+}
+
+model EventPlayer {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  event   Event  @relation(fields: [eventId], references: [id])
+  eventId String @db.ObjectId
+
+  // ensure each user can join each event only once
+  @@unique([userId, eventId])
+}
+
+model WaitlistPlayer {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  event   Event  @relation(fields: [eventId], references: [id])
+  eventId String @db.ObjectId
+
+  // ensure each user can join each event only once
+  @@unique([userId, eventId])
+}
+
+model Discussion {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  event     Event     @relation("eventDiscussion", fields: [eventId], references: [id])
+  eventId   String    @db.ObjectId
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String     @db.ObjectId
+  discussion   Discussion @relation(fields: [discussionId], references: [id])
+  discussionId String     @db.ObjectId
+  text         String
+  createdAt    DateTime   @default(now())
+
+  // self-referencing relation for replies
+  parentComment   Comment?  @relation("RepliesTo", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentCommentId String?   @db.ObjectId
+  replies         Comment[] @relation("RepliesTo")
+}
