@@ -46,13 +46,16 @@ enum SkillLevel {
 }
 
 model School {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   location    String
-  emailDomain String
+  description String
+  founded     Int
+  emailDomain String  @unique
   logo        String
   users       User[]
-  userCount   Int    @default(0)
+  numUsers    Int     @default(0)
+  events      Event[]
 }
 
 model User {
@@ -60,13 +63,16 @@ model User {
   firstName                     String
   lastName                      String
   email                         String     @unique
-  emailVerified                 Boolean    @default(false)
+  emailVerified                 Boolean    @default(true)
   password                      String
+  pronouns                      String?
   role                          String     @default("USER")
   createdAt                     DateTime   @default(now())
   updatedAt                     DateTime   @updatedAt
   profileImage                  String?
+  coverImage                    String?
   bio                           String?
+  major                         String?
   favoriteSports                Sport[]
   school                        School     @relation(fields: [schoolId], references: [id])
   schoolId                      String     @db.ObjectId
@@ -88,6 +94,9 @@ model Event {
   sport          Sport
   skillLevel     SkillLevel
   location       String
+  coed           Boolean
+  school         School           @relation(fields: [schoolId], references: [id])
+  schoolId       String           @db.ObjectId
   creator        User             @relation("eventsCreated", fields: [creatorId], references: [id])
   creatorId      String           @db.ObjectId
   maxPlayers     Int
