@@ -50,7 +50,7 @@ model School {
   name        String
   location    String
   description String
-  founded     Int
+  founded     Int?
   emailDomain String  @unique
   logo        String
   users       User[]
@@ -80,51 +80,28 @@ model User {
   eventConfirmationNotification Boolean    @default(true)
   discussionReplyNotification   Boolean    @default(true)
 
-  eventsCreated Event[]          @relation("eventsCreated") // Events the user has created
-  eventsJoined  EventPlayer[] // Events the user has joined (via EventPlayer join table)
-  eventsWaiting WaitlistPlayer[] // Events the user is on the waitlist for (via WaitlistPlayer join table)
-  comments      Comment[] // Comments the user has made
+  eventsHosted Event[]   @relation("eventsHosted") // Events the user has created
+  comments     Comment[] // Comments the user has made
 }
 
 model Event {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   title          String
+  description    String
   date           DateTime
-  createdAt      DateTime         @default(now())
+  createdAt      DateTime     @default(now())
   sport          Sport
   skillLevel     SkillLevel
   location       String
   coed           Boolean
-  school         School           @relation(fields: [schoolId], references: [id])
-  schoolId       String           @db.ObjectId
-  creator        User             @relation("eventsCreated", fields: [creatorId], references: [id])
-  creatorId      String           @db.ObjectId
-  maxPlayers     Int
-  playersJoined  EventPlayer[]
-  playersWaiting WaitlistPlayer[]
-  discussion     Discussion[]     @relation("eventDiscussion")
-}
-
-model EventPlayer {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String @db.ObjectId
-  event   Event  @relation(fields: [eventId], references: [id])
-  eventId String @db.ObjectId
-
-  // ensure each user can join each event only once
-  @@unique([userId, eventId])
-}
-
-model WaitlistPlayer {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String @db.ObjectId
-  event   Event  @relation(fields: [eventId], references: [id])
-  eventId String @db.ObjectId
-
-  // ensure each user can join each event only once
-  @@unique([userId, eventId])
+  school         School       @relation(fields: [schoolId], references: [id])
+  schoolId       String       @db.ObjectId
+  host           User         @relation("eventsHosted", fields: [hostId], references: [id])
+  hostId         String       @db.ObjectId
+  maxPlayers     Int?
+  playersJoined  String[]     @default([]) @db.ObjectId // array of User ids
+  playersWaiting String[]     @default([]) @db.ObjectId // array of User ids
+  discussion     Discussion[] @relation("eventDiscussion")
 }
 
 model Discussion {
