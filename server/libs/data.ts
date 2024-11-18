@@ -378,3 +378,1008 @@ export const schoolYear = [
   'Senior',
   'Graduate',
 ] as const
+
+export const skillLevels = ['Beginner', 'Intermediate', 'Advanced']
+
+export const seededEvents = [
+  {
+    title: 'Frisbee Pickup Game',
+    description:
+      'A fun and exciting frisbee pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Frisbee',
+    date: '2025-01-11T12:50:00',
+    location: 'Frisbee field 1',
+    skillLevel: 'Advanced',
+    maxPlayers: 14,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2024-12-22T21:12:00',
+    location: 'TableTennis table 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 2,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-15T01:36:00',
+    location: 'Baseball field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 18,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2024-12-21T23:01:00',
+    location: 'TableTennis table 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 2,
+  },
+  {
+    title: 'Soccer Pickup Game',
+    description:
+      'A fun and exciting soccer pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Soccer',
+    date: '2024-12-17T08:51:00',
+    location: 'Soccer field 2',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2024-12-17T01:40:00',
+    location: 'Running track 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: null,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2025-01-12T10:59:00',
+    location: 'Running track 2',
+    skillLevel: 'Beginner',
+    maxPlayers: null,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-20T03:53:00',
+    location: 'Baseball field 5',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2024-12-22T16:30:00',
+    location: 'Tennis court 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2024-12-22T15:21:00',
+    location: 'Cricket field 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 22,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-15T17:30:00',
+    location: 'PickleBall court 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Soccer Pickup Game',
+    description:
+      'A fun and exciting soccer pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Soccer',
+    date: '2025-01-08T00:24:00',
+    location: 'Soccer field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 22,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2025-01-14T05:53:00',
+    location: 'TableTennis table 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 2,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2024-12-28T04:10:00',
+    location: 'FlagFootball field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2024-12-22T22:35:00',
+    location: 'Volleyball court 2',
+    skillLevel: 'Beginner',
+    maxPlayers: 12,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2025-01-14T02:41:00',
+    location: 'FlagFootball field 3',
+    skillLevel: 'Advanced',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2025-01-08T07:08:00',
+    location: 'Swimming pool 2',
+    skillLevel: 'Advanced',
+    maxPlayers: null,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2025-01-01T07:25:00',
+    location: 'Golf course 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2024-12-29T01:00:00',
+    location: 'Swimming pool 1',
+    skillLevel: 'Advanced',
+    maxPlayers: null,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-19T23:39:00',
+    location: 'Baseball field 5',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2025-01-11T19:42:00',
+    location: 'Baseball field 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2025-01-09T22:50:00',
+    location: 'Softball field 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Badminton Pickup Game',
+    description:
+      'A fun and exciting badminton pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Badminton',
+    date: '2024-12-15T02:34:00',
+    location: 'Badminton court 1',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2024-12-29T20:38:00',
+    location: 'Cricket field 4',
+    skillLevel: 'Advanced',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Soccer Pickup Game',
+    description:
+      'A fun and exciting soccer pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Soccer',
+    date: '2024-12-22T16:56:00',
+    location: 'Soccer field 4',
+    skillLevel: 'Advanced',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Basketball Pickup Game',
+    description:
+      'A fun and exciting basketball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Basketball',
+    date: '2025-01-14T14:35:00',
+    location: 'Basketball court 2',
+    skillLevel: 'Advanced',
+    maxPlayers: 10,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-21T15:48:00',
+    location: 'PickleBall court 5',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Basketball Pickup Game',
+    description:
+      'A fun and exciting basketball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Basketball',
+    date: '2024-12-17T13:21:00',
+    location: 'Basketball court 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 10,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2024-12-24T20:20:00',
+    location: 'Volleyball court 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 12,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2024-12-23T16:28:00',
+    location: 'Cricket field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-22T12:21:00',
+    location: 'Baseball field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2025-01-12T14:57:00',
+    location: 'Baseball field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Badminton Pickup Game',
+    description:
+      'A fun and exciting badminton pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Badminton',
+    date: '2024-12-24T07:53:00',
+    location: 'Badminton court 5',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2025-01-15T16:03:00',
+    location: 'Golf course 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Badminton Pickup Game',
+    description:
+      'A fun and exciting badminton pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Badminton',
+    date: '2025-01-15T20:09:00',
+    location: 'Badminton court 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-19T05:36:00',
+    location: 'PickleBall court 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2025-01-07T08:19:00',
+    location: 'Cricket field 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2024-12-27T14:29:00',
+    location: 'Swimming pool 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: null,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-28T12:26:00',
+    location: 'Baseball field 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Basketball Pickup Game',
+    description:
+      'A fun and exciting basketball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Basketball',
+    date: '2025-01-09T09:32:00',
+    location: 'Basketball court 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 10,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-23T18:22:00',
+    location: 'PickleBall court 5',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2025-01-07T07:23:00',
+    location: 'Golf course 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2024-12-31T14:04:00',
+    location: 'Softball field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2025-01-06T15:18:00',
+    location: 'Swimming pool 5',
+    skillLevel: 'Beginner',
+    maxPlayers: null,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2024-12-24T13:08:00',
+    location: 'Softball field 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: 20,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-17T12:43:00',
+    location: 'PickleBall court 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Soccer Pickup Game',
+    description:
+      'A fun and exciting soccer pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Soccer',
+    date: '2025-01-03T00:26:00',
+    location: 'Soccer field 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Soccer Pickup Game',
+    description:
+      'A fun and exciting soccer pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Soccer',
+    date: '2025-01-14T19:07:00',
+    location: 'Soccer field 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 22,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2024-12-29T09:47:00',
+    location: 'PickleBall court 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2025-01-11T01:28:00',
+    location: 'Softball field 5',
+    skillLevel: 'Advanced',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2024-12-22T08:28:00',
+    location: 'Tennis court 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2024-12-21T08:04:00',
+    location: 'TableTennis table 3',
+    skillLevel: 'Advanced',
+    maxPlayers: 2,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2024-12-23T05:46:00',
+    location: 'FlagFootball field 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2024-12-21T08:48:00',
+    location: 'Tennis court 3',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2025-01-04T15:39:00',
+    location: 'Running track 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: null,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2025-01-10T06:01:00',
+    location: 'Softball field 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 20,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2025-01-11T18:19:00',
+    location: 'PickleBall court 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2025-01-01T07:09:00',
+    location: 'Golf course 2',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2025-01-08T09:33:00',
+    location: 'Swimming pool 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: null,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2025-01-15T18:01:00',
+    location: 'Volleyball court 4',
+    skillLevel: 'Advanced',
+    maxPlayers: 12,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2024-12-27T20:13:00',
+    location: 'Running track 2',
+    skillLevel: 'Advanced',
+    maxPlayers: null,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2024-12-19T21:42:00',
+    location: 'Golf course 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2025-01-11T09:22:00',
+    location: 'Tennis court 2',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-31T09:36:00',
+    location: 'Baseball field 2',
+    skillLevel: 'Advanced',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2024-12-24T02:36:00',
+    location: 'Swimming pool 1',
+    skillLevel: 'Beginner',
+    maxPlayers: null,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2024-12-18T00:37:00',
+    location: 'Running track 4',
+    skillLevel: 'Advanced',
+    maxPlayers: null,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2025-01-08T05:33:00',
+    location: 'Cricket field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Running Pickup Game',
+    description:
+      'A fun and exciting running pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Running',
+    date: '2024-12-16T16:26:00',
+    location: 'Running track 2',
+    skillLevel: 'Beginner',
+    maxPlayers: null,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2025-01-02T06:07:00',
+    location: 'Cricket field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 22,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2025-01-11T21:49:00',
+    location: 'PickleBall court 3',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2024-12-27T01:04:00',
+    location: 'FlagFootball field 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2025-01-13T04:45:00',
+    location: 'Tennis court 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2024-12-18T20:21:00',
+    location: 'TableTennis table 4',
+    skillLevel: 'Advanced',
+    maxPlayers: 2,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2024-12-25T09:10:00',
+    location: 'Volleyball court 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 12,
+  },
+  {
+    title: 'Golf Pickup Game',
+    description:
+      'A fun and exciting golf pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Golf',
+    date: '2025-01-10T13:30:00',
+    location: 'Golf course 2',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2024-12-19T20:24:00',
+    location: 'Softball field 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2024-12-26T19:15:00',
+    location: 'Swimming pool 1',
+    skillLevel: 'Beginner',
+    maxPlayers: null,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2025-01-13T23:56:00',
+    location: 'TableTennis table 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 2,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2024-12-27T14:01:00',
+    location: 'Softball field 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-28T14:13:00',
+    location: 'Baseball field 5',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2025-01-11T13:40:00',
+    location: 'Baseball field 1',
+    skillLevel: 'Beginner',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2025-01-11T17:16:00',
+    location: 'Cricket field 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 22,
+  },
+  {
+    title: 'PickleBall Pickup Game',
+    description:
+      'A fun and exciting pickleball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'PickleBall',
+    date: '2025-01-13T05:53:00',
+    location: 'PickleBall court 5',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Softball Pickup Game',
+    description:
+      'A fun and exciting softball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Softball',
+    date: '2025-01-05T12:49:00',
+    location: 'Softball field 3',
+    skillLevel: 'Intermediate',
+    maxPlayers: 20,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2024-12-22T12:56:00',
+    location: 'Baseball field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 18,
+  },
+  {
+    title: 'TableTennis Pickup Game',
+    description:
+      'A fun and exciting tabletennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'TableTennis',
+    date: '2024-12-16T23:45:00',
+    location: 'TableTennis table 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 2,
+  },
+  {
+    title: 'Basketball Pickup Game',
+    description:
+      'A fun and exciting basketball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Basketball',
+    date: '2024-12-25T01:29:00',
+    location: 'Basketball court 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: 10,
+  },
+  {
+    title: 'Baseball Pickup Game',
+    description:
+      'A fun and exciting baseball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Baseball',
+    date: '2025-01-09T08:25:00',
+    location: 'Baseball field 3',
+    skillLevel: 'Advanced',
+    maxPlayers: 18,
+  },
+  {
+    title: 'Frisbee Pickup Game',
+    description:
+      'A fun and exciting frisbee pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Frisbee',
+    date: '2025-01-09T15:09:00',
+    location: 'Frisbee field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 14,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2025-01-10T22:22:00',
+    location: 'FlagFootball field 5',
+    skillLevel: 'Beginner',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Badminton Pickup Game',
+    description:
+      'A fun and exciting badminton pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Badminton',
+    date: '2024-12-15T10:38:00',
+    location: 'Badminton court 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2024-12-31T03:58:00',
+    location: 'Volleyball court 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 12,
+  },
+  {
+    title: 'FlagFootball Pickup Game',
+    description:
+      'A fun and exciting flagfootball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'FlagFootball',
+    date: '2025-01-15T17:07:00',
+    location: 'FlagFootball field 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Tennis Pickup Game',
+    description:
+      'A fun and exciting tennis pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Tennis',
+    date: '2024-12-23T02:21:00',
+    location: 'Tennis court 1',
+    skillLevel: 'Advanced',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Swimming Pickup Game',
+    description:
+      'A fun and exciting swimming pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Swimming',
+    date: '2025-01-13T18:38:00',
+    location: 'Swimming pool 4',
+    skillLevel: 'Intermediate',
+    maxPlayers: null,
+  },
+  {
+    title: 'Frisbee Pickup Game',
+    description:
+      'A fun and exciting frisbee pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Frisbee',
+    date: '2025-01-07T14:46:00',
+    location: 'Frisbee field 1',
+    skillLevel: 'Advanced',
+    maxPlayers: 14,
+  },
+  {
+    title: 'Cricket Pickup Game',
+    description:
+      'A fun and exciting cricket pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Cricket',
+    date: '2024-12-24T01:12:00',
+    location: 'Cricket field 3',
+    skillLevel: 'Advanced',
+    maxPlayers: 22,
+  },
+  {
+    title: 'Volleyball Pickup Game',
+    description:
+      'A fun and exciting volleyball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Volleyball',
+    date: '2025-01-02T21:36:00',
+    location: 'Volleyball court 2',
+    skillLevel: 'Intermediate',
+    maxPlayers: 12,
+  },
+  {
+    title: 'Badminton Pickup Game',
+    description:
+      'A fun and exciting badminton pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Badminton',
+    date: '2024-12-22T19:03:00',
+    location: 'Badminton court 4',
+    skillLevel: 'Beginner',
+    maxPlayers: 4,
+  },
+  {
+    title: 'Basketball Pickup Game',
+    description:
+      'A fun and exciting basketball pickup game. All are welcome to join and showcase their skills.',
+    sport: 'Basketball',
+    date: '2024-12-19T16:36:00',
+    location: 'Basketball court 1',
+    skillLevel: 'Intermediate',
+    maxPlayers: 10,
+  },
+] as const

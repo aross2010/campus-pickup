@@ -1,5 +1,5 @@
 import client from '../libs/prisma'
-import { School, User } from '@prisma/client'
+import { Event, School, User } from '@prisma/client'
 import {
   bios,
   firstNames,
@@ -7,10 +7,11 @@ import {
   majors,
   schools,
   schoolYear,
+  seededEvents,
   sports,
 } from '../libs/data'
 
-/* This page seeds the database with random data for use in testing. */
+/* This page seeds the database with random data for use in testing. Will automate seeding to keep data in db. */
 
 const seedUsers = async (numUsers: number) => {
   const users: User[] = []
@@ -45,33 +46,35 @@ const seedUsers = async (numUsers: number) => {
     const year = schoolYear[Math.floor(Math.random() * schoolYear.length)]
 
     try {
-      const [user, updatedSchool] = await client.$transaction([
-        client.user.create({
-          data: {
-            schoolId,
-            firstName,
-            lastName,
-            email,
-            password,
-            bio,
-            profileImage,
-            coverImage,
-            major,
-            favoriteSports,
-            schoolYear: year,
+      await client.user.create({
+        data: {
+          schoolId,
+          firstName,
+          lastName,
+          email,
+          password,
+          bio,
+          profileImage,
+          coverImage,
+          major,
+          favoriteSports,
+          schoolYear: year,
+        },
+      })
+
+      await client.school.update({
+        where: {
+          id: schoolId,
+        },
+        data: {
+          numUsers: {
+            increment: 1,
           },
-        }),
-        client.school.update({
-          where: { id: schoolId },
-          data: {
-            numUsers: {
-              increment: 1,
-            },
-          },
-        }),
-      ])
+        },
+      })
     } catch (e) {
       console.error(e)
+      return
     }
   }
 }
@@ -86,5 +89,50 @@ const seedSchools = async () => {
   })
 }
 
-// seedSchools()
-// seedUsers(100)
+const seedEvents = async (numEvents: number) => {
+  await client.event.deleteMany()
+  for (let i = 0; i < numEvents; i++) {
+    const userIndex = Math.floor(Math.random() * 100)
+    const userHost = (await client.user.findMany({
+      skip: userIndex,
+      take: 1,
+    })) as User[]
+    const host = userHost[0]
+    const school = await client.school.findUnique({
+      where: {
+        id: host.schoolId,
+      },
+    })
+    const coed = Math.random() > 0.5 ? true : false
+    const users = (await client.user.findMany({
+      take: Math.ceil(Math.random() * 4),
+    })) as User[]
+    const playersJoined = []
+    for (let j = 0; j < users.length; j++)
+      if (users[j].id !== host.id) playersJoined.push(users[j].id)
+    const eventData = seededEvents[i]
+    try {
+      const event = (await client.event.create({
+        data: {
+          coed,
+          hostId: host.id,
+          schoolId: host.schoolId,
+          playersJoined,
+          ...eventData,
+          date: new Date(eventData.date).toISOString(),
+        },
+      })) as Event
+    } catch (e) {
+      console.error(e)
+      return
+    }
+  }
+}
+
+const seed = async () => {
+  //   await seedSchools()
+  //   await seedUsers(100)
+  await seedEvents(100)
+}
+
+seed()
