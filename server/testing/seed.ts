@@ -13,6 +13,16 @@ import {
 
 /* This page seeds the database with random data for use in testing. Will automate seeding to keep data in db. */
 
+const seedSchools = async () => {
+  await client.school.deleteMany()
+
+  schools.forEach(async (school) => {
+    const uni = await client.school.create({
+      data: school,
+    })
+  })
+}
+
 const seedUsers = async (numUsers: number) => {
   const users: User[] = []
 
@@ -79,16 +89,6 @@ const seedUsers = async (numUsers: number) => {
   }
 }
 
-const seedSchools = async () => {
-  await client.school.deleteMany()
-
-  schools.forEach(async (school) => {
-    const uni = await client.school.create({
-      data: school,
-    })
-  })
-}
-
 const seedEvents = async (numEvents: number) => {
   await client.event.deleteMany()
   for (let i = 0; i < numEvents; i++) {
@@ -104,7 +104,10 @@ const seedEvents = async (numEvents: number) => {
       },
     })
     const coed = Math.random() > 0.5 ? true : false
+    const totalCount = await client.user.count()
+    const randomOffset = Math.floor(Math.random() * totalCount)
     const users = (await client.user.findMany({
+      skip: randomOffset,
       take: Math.ceil(Math.random() * 4),
     })) as User[]
     const playersJoined = []
@@ -117,11 +120,26 @@ const seedEvents = async (numEvents: number) => {
           coed,
           hostId: host.id,
           schoolId: host.schoolId,
-          playersJoined,
+          usersJoinedIds: playersJoined,
           ...eventData,
           date: new Date(eventData.date).toISOString(),
+          discussion: {
+            create: {},
+          },
         },
       })) as Event
+      playersJoined.forEach(async (userId) => {
+        await client.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            eventsJoinedIds: {
+              push: event.id,
+            },
+          },
+        })
+      })
     } catch (e) {
       console.error(e)
       return
@@ -130,9 +148,9 @@ const seedEvents = async (numEvents: number) => {
 }
 
 const seed = async () => {
-  //   await seedSchools()
-  //   await seedUsers(100)
+  await seedSchools()
+  await seedUsers(100)
   await seedEvents(100)
 }
 
-seed()
+// seed()

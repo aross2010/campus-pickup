@@ -82,32 +82,43 @@ model User {
 
   eventsHosted Event[]   @relation("eventsHosted") // Events the user has created
   comments     Comment[] // Comments the user has made
+
+  eventsJoinedIds String[] @db.ObjectId
+  eventsJoined    Event[]  @relation("eventsJoined", fields: [eventsJoinedIds], references: [id])
+
+  eventsWatingIds String[] @db.ObjectId
+  eventsWaiting   Event[]  @relation("eventsWaiting", fields: [eventsWatingIds], references: [id])
 }
 
 model Event {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  title          String
-  description    String
-  date           DateTime
-  createdAt      DateTime     @default(now())
-  sport          Sport
-  skillLevel     SkillLevel
-  location       String
-  coed           Boolean
-  school         School       @relation(fields: [schoolId], references: [id])
-  schoolId       String       @db.ObjectId
-  host           User         @relation("eventsHosted", fields: [hostId], references: [id])
-  hostId         String       @db.ObjectId
-  maxPlayers     Int?
-  playersJoined  String[]     @default([]) @db.ObjectId // array of User ids
-  playersWaiting String[]     @default([]) @db.ObjectId // array of User ids
-  discussion     Discussion[] @relation("eventDiscussion")
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  date        DateTime
+  createdAt   DateTime   @default(now())
+  sport       Sport
+  skillLevel  SkillLevel
+  location    String
+  coed        Boolean
+  school      School     @relation(fields: [schoolId], references: [id])
+  schoolId    String     @db.ObjectId
+  host        User       @relation("eventsHosted", fields: [hostId], references: [id])
+  hostId      String     @db.ObjectId
+  maxPlayers  Int?
+
+  usersJoinedIds String[] @db.ObjectId
+  usersJoined    User[]   @relation("eventsJoined", fields: [usersJoinedIds], references: [id])
+
+  usersWaitingIds String[] @db.ObjectId
+  usersWaiting    User[]   @relation("eventsWaiting", fields: [usersWaitingIds], references: [id])
+
+  discussion Discussion? @relation("eventDiscussion") // ensure discussion creation at event creation
 }
 
 model Discussion {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   event     Event     @relation("eventDiscussion", fields: [eventId], references: [id])
-  eventId   String    @db.ObjectId
+  eventId   String    @unique @db.ObjectId
   createdAt DateTime  @default(now())
   comments  Comment[]
 }
