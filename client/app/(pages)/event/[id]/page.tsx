@@ -12,9 +12,9 @@ export default function EventDetail() {
           />
         </div>
 
-        <div className="eventInfo space-y-2 mt-4 mx-[500px] mb-20 text-center">
-          <h1 className='text-2xl font-bold text-white'>Tennis Game</h1>
-          <h3 className='text-lg font-bold text-white'>Level: </h3>
+        <div className="eventInfo space-y-2 mt-4 mx-[600px] mb-20 text-center">
+          <h1 className='text-5xl font-bold text-white'>Tennis Game</h1>
+          <h3 className='text-2xl font-bold text-white'>Level: </h3>
           <h4>
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 512 512">
               <path fill="white" d="M271.514 95.5h-32v178.111l115.613 54.948l13.737-28.902l-97.35-46.268z"/>
@@ -36,7 +36,7 @@ export default function EventDetail() {
         <section className="bg-white w-1/2 rounded-lg py-8 lg:py-16 antialiased">
           <div className="max-w-2xl mx-auto px-4">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg lg:text-2xl font-bold">Team Discussion</h2>
+              <h2 className="text-4xl font-bold">Team Discussion</h2>
             </div>
             <form className="mb-6">
               <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 flex items-center">
@@ -93,9 +93,7 @@ export default function EventDetail() {
                   </ul>
                 </div>
               </footer>
-              <p className="text-gray-500">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                instruments for the UX designers. The knowledge of the design tools are as important as the
-                creation of the design strategy.</p>
+              <p className="text-gray-500">Lorem ipsum odor amet, consectetuer adipiscing elit. Pulvinar pulvinar suscipit tempor nisl dictumst efficitur fermentum pellentesque. Ut elementum mollis etiam; faucibus porttitor hendrerit.</p>
               <div className="flex items-center mt-4 space-x-4">
                 <button type="button"
                   className="flex items-center text-sm text-gray-500 hover:underline font-medium">
@@ -141,8 +139,7 @@ export default function EventDetail() {
                   </ul>
                 </div>
               </footer>
-              <p className="text-gray-500">I agree! Tools like Figma and Sketch are essential for designing efficient user interfaces,
-                but without a clear design strategy, they're just tools without direction.</p>
+              <p className="text-gray-500">Lorem ipsum odor amet, consectetuer adipiscing elit. Pulvinar pulvinar suscipit tempor nisl dictumst efficitur fermentum pellentesque. Ut elementum mollis etiam; faucibus porttitor hendrerit.</p>
             </article>
           </div>
         </section>
