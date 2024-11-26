@@ -15,9 +15,9 @@ export default function GamesFeed() {
                     <h1 className="text-4xl mt-[120px] font-bold text-white text-center">Your Next Match Starts Here</h1>
                     <p className="text-sm mt-5 text-gray-100/60 text-center">Play a sport you love or discover a new one</p>
                 </div>
-                <button className="absolute bottom-[100px] left-1/2 -translate-x-1/2 text-white font-bold rounded-md px-4 py-2 bg-gradient-to-r from-[#e5a823] to-[#e57a23]">
+                <a href="event/create" className="absolute bottom-[100px] left-1/2 -translate-x-1/2 text-white font-bold rounded-md px-4 py-2 bg-gradient-to-r from-[#e5a823] to-[#e57a23]">
                     Create a new game
-                </button>
+                </a>
             </div>
 
             <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 w-[800px] mx-auto dark:text-gray-400 dark:border-gray-700">
