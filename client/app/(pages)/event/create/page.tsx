@@ -166,7 +166,7 @@ export default function CreateEvent() {
                             </div>
                         </div>
                         {error && (
-                            <div className="mb-5 text-red-600 text-sm">
+                            <div className="mb-5 text-orange-500 text-sm">
                                 {error}
                             </div>
                         )}
@@ -195,7 +195,7 @@ export default function CreateEvent() {
                         </div>
                     </div>
                     <div className="flex justify-center">
-                        <button type="button" className="text-white bg-[#0055a2] focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-m px-5 py-2.5">
+                        <button type="submit" className="text-white bg-[#0055a2] focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-m px-5 py-2.5">
                             Create Event
                         </button>
                     </div>
