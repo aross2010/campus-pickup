@@ -44,5 +44,5 @@ MongoDB database with NodeJS framework using Express.
 
 - [Mohammed Rahman](https://github.com)
 - [Noah Scheuerman](https://github.com)
-- [Alex Ross](https://github.com)
+- [Alex Ross](https://github.com/aross2010)
 - [Phuong Tong](https://github.com/YPhuong15)
