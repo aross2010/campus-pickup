@@ -26,7 +26,7 @@ export default function Navbar() {
 
       {/* Sign Up */}
       <div className="flex-shrink-0">
-        <Link href="/signup" className="text-m font-semibold text-white">
+        <Link href="/signup" className="text-m font-semibold text-white hover:text-[#e5a823]">
           Sign Up
         </Link>
       </div>
