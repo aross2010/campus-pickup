@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function UserProfile() {
     return (
-        <div className="w-full min-h-screen">
+        <div className="w-full min-h-screen mb-20">
             <div className="w-full h-[450px] bg-[#e5a823] relative">
                 <div className="absolute top-4 left-4 flex flex-col items-center">
                     <img
