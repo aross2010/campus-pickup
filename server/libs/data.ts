@@ -1383,3 +1383,9 @@ export const seededEvents = [
     maxPlayers: 10,
   },
 ] as const
+
+export const validEmailDomains = new Set([
+  'sjsu.edu',
+  'stanford.edu',
+  'berkley.edu',
+])
