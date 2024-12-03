@@ -175,7 +175,7 @@ export default function GamesFeed() {
                                     {/* Add additional properties if needed */}
                                     <p className="text-m text-gray-400 uppercase font-semibold">{game.date}</p>
                                     <p className="text-m text-gray-400 font-semibold">{game.time}</p>
-                                    <p className="text-m text-gray-400 font-semibold">{game.location}</p>
+                                    <p className="text-m text-gray-400 uppercase font-semibold">{game.location}</p>
                                 </div>
                             </div>
                             {/* Title and Description */}
@@ -262,9 +262,9 @@ export default function GamesFeed() {
 
                                 <div className="flex flex-col items-end">
                                     {/* Add additional properties if needed */}
+                                    <p className="text-m text-gray-400 uppercase font-semibold">{new Date(event.date).toISOString().split('T')[0]}</p>
                                     <p className="text-m text-gray-400 uppercase font-semibold">{event.date}</p>
-                                    <p className="text-m text-gray-400 font-semibold">{event.date}</p>
-                                    <p className="text-m text-gray-400 font-semibold">{event.location}</p>
+                                    <p className="text-m text-gray-400 uppercase font-semibold">{event.location}</p>
                                 </div>
                             </div>
                             <h2 className="text-2xl font-bold text-white">{event.title}</h2>
