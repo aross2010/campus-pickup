@@ -5,6 +5,7 @@ import { initializePassport } from './passport-config'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import cors from 'cors'
 import { isvalidEmail } from './helpers/valid-email'
 import { equal } from 'assert'
 
@@ -14,6 +15,7 @@ const PORT = 3000
 initializePassport()
 app.use(passport.initialize())
 app.use(express.json())
+app.use(cors()); 
 
 const generateToken = (user: { id: string; email: string }) => {
   return jwt.sign(user, process.env.JWT_SECRET as string, { expiresIn: '30d' })
