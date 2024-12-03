@@ -3,15 +3,14 @@
 import React, {useState} from 'react'
 
 export default function UserSettings() {
-  const [profilePic, setProfilePic] = useState<File | null>(null); // To store the selected file
-  const [preview, setPreview] = useState<string | null>(null); // For the image preview URL
-
+  const [profilePic, setProfilePic] = useState<File | null>(null); 
+  const [preview, setPreview] = useState<string | null>(null); 
   // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Get the selected file
+    const file = event.target.files?.[0]; 
     if (file) {
       setProfilePic(file);
-      setPreview(URL.createObjectURL(file)); // Generate a preview URL
+      setPreview(URL.createObjectURL(file)); 
     }
   };
 
