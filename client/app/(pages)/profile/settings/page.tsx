@@ -1,12 +1,50 @@
 'use client';
 
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function UserSettings() {
+  const [profilePic, setProfilePic] = useState<File | null>(null); // To store the selected file
+  const [preview, setPreview] = useState<string | null>(null); // For the image preview URL
+
+  // Handle file selection
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Get the selected file
+    if (file) {
+      setProfilePic(file);
+      setPreview(URL.createObjectURL(file)); // Generate a preview URL
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form className="w-[900px] h-[800px] bg-white p-[60px] drop-shadow-lg rounded-lg">
+    <div className="flex items-center justify-center min-h-screen py-[50px]">
+      <form className="w-[900px] bg-white p-[60px] drop-shadow-lg rounded-lg m-10">
         <h1 className="text-3xl font-bold text-gray-700 mb-5"> Setting Up Your Profile</h1>
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border border-gray-400 mb-4">
+            {preview ? (
+              <img
+                src={preview}
+                alt="Profile Preview"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-gray-500">No Image</span>
+            )}
+          </div>
+          <label
+            htmlFor="profile-pic-upload"
+            className="px-5 py-2 bg-[#939597] text-white text-sm font-semibold rounded-lg hover:bg-[#003f73] transition duration-300 cursor-pointer"
+          >
+            Upload Photo
+          </label>
+          <input
+            type="file"
+            id="profile-pic-upload"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </div>
         <div className="flex flex-col mb-5">
           <label
             htmlFor="bio"
