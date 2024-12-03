@@ -1,9 +1,27 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import axios from 'axios';
 
+interface Event {
+    id: string;  // Prisma generates a string-based ObjectId
+    title: string;
+    description: string;
+    date: string;  // You can convert DateTime to string or use Date object as needed
+    location: string;
+    skillLevel: string;
+    sport: string;
+    coed: boolean;
+    schoolId: string;
+    hostId: string;
+    maxPlayers: number, 
+  }
+  
 export default function GamesFeed() {
+    const [allEvents, setAllEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState('all'); // State to manage active tab
 
     // Sample card data for each tab
@@ -12,10 +30,29 @@ export default function GamesFeed() {
         { id: 2, title: 'Basketball Game', description: 'Play a friendly basketball game.' },
     ];
 
-    const allGames = [
-        { id: 3, title: 'Tennis Match', description: 'Play a singles or doubles match.', date: 'Fri Dec 15, 2024', time: '7:00PM', location: 'SJSU SRAC Court 1', sport: 'Basket Ball', maxPlayers: '10', currentPlayers: '7', skill: 'Beginner', host: 'Alex Ross' },
-        { id: 4, title: 'Running Group', description: 'Join a running group for fitness.' },
-    ];
+    useEffect(() => {
+        const fetchEvents = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/events');
+            setAllEvents(response.data);
+            console.log(response.data)  // Store events data in state
+            setLoading(false);
+          } catch (error) {
+            setError('Failed to fetch events');
+            setLoading(false);
+          }
+        };
+    
+        fetchEvents();
+      }, []); 
+
+      if (loading) {
+        return <div>Loading events...</div>;
+      }
+    
+      if (error) {
+        return <div>{error}</div>;  // Display the error message if present
+      }
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center">
@@ -157,9 +194,9 @@ export default function GamesFeed() {
                     ))}
 
                 {activeTab === 'all' &&
-                    allGames.map((game) => (
+                    allEvents.map((event) => (
                         <div
-                            key={game.id}
+                            key={event.id}
                             className="rounded-lg shadow-lg p-4 bg-gray-800"
                         >
                             <div className="flex justify-between mb-4">
@@ -182,7 +219,7 @@ export default function GamesFeed() {
                                             <path d="M6.4 19c3.5-3.5 6-6.5 14.5-6.4" />
                                             <path d="M3.1 10.75c5 0 9.814-.38 15.314-5" />
                                         </svg>
-                                        {game.sport}
+                                        {event.sport}
                                     </p>
 
                                     <p className="text-m text-white flex items-center gap-2">
@@ -201,7 +238,7 @@ export default function GamesFeed() {
                                             <circle cx="12" cy="5" r="2" />
                                             <path d="M10 22v-5l-1-1v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4l-1 1v5" />
                                         </svg>
-                                        {game.currentPlayers}/{game.maxPlayers} Players
+                                        {event.maxPlayers}/{event.maxPlayers} Players
                                     </p>
 
                                     <p className="text-m text-white flex items-center gap-2">
@@ -218,25 +255,25 @@ export default function GamesFeed() {
                                                 d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                                             />
                                         </svg>
-                                        {game.skill}
+                                        {event.skillLevel}
                                     </p>
 
                                 </div>
 
                                 <div className="flex flex-col items-end">
                                     {/* Add additional properties if needed */}
-                                    <p className="text-m text-gray-400 uppercase font-semibold">{game.date}</p>
-                                    <p className="text-m text-gray-400 font-semibold">{game.time}</p>
-                                    <p className="text-m text-gray-400 font-semibold">{game.location}</p>
+                                    <p className="text-m text-gray-400 uppercase font-semibold">{event.date}</p>
+                                    <p className="text-m text-gray-400 font-semibold">{event.date}</p>
+                                    <p className="text-m text-gray-400 font-semibold">{event.location}</p>
                                 </div>
                             </div>
-                            <h2 className="text-2xl font-bold text-white">{game.title}</h2>
-                            <p className="text-m text-gray-400 mt-2">{game.description}</p>
-                            <p className="text-m text-gray-400 mt-2">Hosted by: <a className='text-white font-medium'>{game.host}</a></p>
+                            <h2 className="text-2xl font-bold text-white">{event.title}</h2>
+                            <p className="text-m text-gray-400 mt-2">{event.description}</p>
+                            <p className="text-m text-gray-400 mt-2">Hosted by: <a className='text-white font-medium'>{event.id}</a></p>
                             <div className="mt-9 flex justify-between">
                                 <button
                                     className="bg-gradient-to-r from-[#e5a823] to-[#e57a23] text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 font-semibold"
-                                    onClick={() => alert(`Joined the game: ${game.title}`)}
+                                    onClick={() => alert(`Joined the game: ${event.title}`)}
                                 >
                                     Reserve your spot
                                 </button>
