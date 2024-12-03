@@ -35,7 +35,6 @@ export default function GamesFeed() {
           try {
             const response = await axios.get('http://localhost:3000/events');
             setAllEvents(response.data);
-            console.log(response.data)  // Store events data in state
             setLoading(false);
           } catch (error) {
             setError('Failed to fetch events');
@@ -263,7 +262,7 @@ export default function GamesFeed() {
                                 <div className="flex flex-col items-end">
                                     {/* Add additional properties if needed */}
                                     <p className="text-m text-gray-400 uppercase font-semibold">{new Date(event.date).toISOString().split('T')[0]}</p>
-                                    <p className="text-m text-gray-400 uppercase font-semibold">{event.date}</p>
+                                    <p className="text-m text-gray-400 uppercase font-semibold">{new Date(event.date).toISOString().split('T')[1].split('.')[0]}</p>
                                     <p className="text-m text-gray-400 uppercase font-semibold">{event.location}</p>
                                 </div>
                             </div>
