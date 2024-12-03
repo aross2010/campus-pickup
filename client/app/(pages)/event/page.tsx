@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
+import Link from 'next/link';
 
 interface Event {
     id: string;  // Prisma generates a string-based ObjectId
@@ -15,9 +16,9 @@ interface Event {
     coed: boolean;
     schoolId: string;
     hostId: string;
-    maxPlayers: number, 
-  }
-  
+    maxPlayers: number,
+}
+
 export default function GamesFeed() {
     const [allEvents, setAllEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
@@ -32,26 +33,26 @@ export default function GamesFeed() {
 
     useEffect(() => {
         const fetchEvents = async () => {
-          try {
-            const response = await axios.get('http://localhost:3000/events');
-            setAllEvents(response.data);
-            setLoading(false);
-          } catch (error) {
-            setError('Failed to fetch events');
-            setLoading(false);
-          }
+            try {
+                const response = await axios.get('http://localhost:3000/events');
+                setAllEvents(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError('Failed to fetch events');
+                setLoading(false);
+            }
         };
-    
-        fetchEvents();
-      }, []); 
 
-      if (loading) {
+        fetchEvents();
+    }, []);
+
+    if (loading) {
         return <div>Loading events...</div>;
-      }
-    
-      if (error) {
+    }
+
+    if (error) {
         return <div>{error}</div>;  // Display the error message if present
-      }
+    }
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center">
@@ -266,7 +267,10 @@ export default function GamesFeed() {
                                     <p className="text-m text-gray-400 uppercase font-semibold">{event.location}</p>
                                 </div>
                             </div>
-                            <h2 className="text-2xl font-bold text-white">{event.title}</h2>
+                            <h2 className="text-2xl font-bold text-white">
+                                <Link href={`/event/${event.id}`}>
+                                    {event.title}
+                                </Link></h2>
                             <p className="text-m text-gray-400 mt-2">{event.description}</p>
                             <p className="text-m text-gray-400 mt-2">Hosted by: <a className='text-white font-medium'>{event.id}</a></p>
                             <div className="mt-9 flex justify-between">
