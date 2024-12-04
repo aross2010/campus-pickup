@@ -16,7 +16,8 @@ interface Event {
     coed: boolean;
     schoolId: string;
     hostId: string;
-    maxPlayers: number,
+    maxPlayers: number;
+    usersJoinedIds: string[];
 }
 
 export default function GamesFeed() {
@@ -238,7 +239,7 @@ export default function GamesFeed() {
                                             <circle cx="12" cy="5" r="2" />
                                             <path d="M10 22v-5l-1-1v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4l-1 1v5" />
                                         </svg>
-                                        {event.maxPlayers}/{event.maxPlayers} Players
+                                        {event.usersJoinedIds.length}/{event.maxPlayers} Players
                                     </p>
 
                                     <p className="text-m text-white flex items-center gap-2">
