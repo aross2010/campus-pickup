@@ -1,16 +1,24 @@
 'use client';
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export default function UserSettings() {
-  const [profilePic, setProfilePic] = useState<File | null>(null); 
-  const [preview, setPreview] = useState<string | null>(null); 
-  // Handle file selection
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; 
+  const [previewBanner, setPreviewBanner] = useState<string | null>(null);
+  const [previewProfile, setPreviewProfile] = useState<string | null>(null);
+
+  const handleBannerImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Use optional chaining to avoid errors
     if (file) {
-      setProfilePic(file);
-      setPreview(URL.createObjectURL(file)); 
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewBanner(imageUrl);
+    }
+  };
+
+  const handleProfilePicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Use optional chaining to avoid errors
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewProfile(imageUrl);
     }
   };
 
@@ -18,31 +26,80 @@ export default function UserSettings() {
     <div className="flex items-center justify-center min-h-screen py-[50px]">
       <form className="w-[900px] bg-white p-[60px] drop-shadow-lg rounded-lg m-10">
         <h1 className="text-3xl font-bold text-gray-700 mb-5"> Setting Up Your Profile</h1>
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border border-gray-400 mb-4">
-            {preview ? (
-              <img
-                src={preview}
-                alt="Profile Preview"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-gray-500">No Image</span>
-            )}
-          </div>
+        <div className="relative w-full h-[250px] bg-gray-200 flex items-center justify-center overflow-hidden border border-gray-400 mb-8 rounded-lg">
+          {previewBanner ? (
+            <img
+              src={previewBanner}
+              alt="Banner Preview"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-gray-500">No Banner Image</span>
+          )}
           <label
-            htmlFor="profile-pic-upload"
-            className="px-5 py-2 bg-[#939597] text-white text-sm font-semibold rounded-lg hover:bg-[#003f73] transition duration-300 cursor-pointer"
+            htmlFor="banner-image-upload"
+            className="absolute bottom-4 right-4 px-5 py-2 bg-[#939597] text-white text-sm font-semibold rounded-lg hover:bg-gray-600 transition duration-300 cursor-pointer"
           >
-            Upload Photo
+            Upload Banner
           </label>
           <input
             type="file"
-            id="profile-pic-upload"
+            id="banner-image-upload"
             accept="image/*"
-            onChange={handleFileChange}
+            onChange={handleBannerImageChange}
             className="hidden"
           />
+
+          <div className="absolute top-18 left-9">
+            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border border-gray-400 mb-4">
+              {previewProfile ? (
+                <img
+                  src={previewProfile}
+                  alt="Profile Preview"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-gray-500">No Image</span>
+              )}
+
+            </div>
+
+            <label
+              htmlFor="profile-pic-upload"
+              className="absolute bottom-[16px] left-[40px] bg-opacity-70 p-2 cursor-pointer"
+            >
+              <svg
+                className="w-8 h-8 text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+            </label>
+
+            <input
+              type="file"
+              id="profile-pic-upload"
+              accept="image/*"
+              onChange={handleProfilePicChange}
+              className="hidden"
+            />
+          </div>
         </div>
         <div className="flex flex-col mb-5">
           <label
