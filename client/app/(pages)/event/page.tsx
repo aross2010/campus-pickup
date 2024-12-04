@@ -6,10 +6,10 @@ import axios from 'axios';
 import Link from 'next/link';
 
 interface Event {
-    id: string;  // Prisma generates a string-based ObjectId
+    id: string;  
     title: string;
     description: string;
-    date: string;  // You can convert DateTime to string or use Date object as needed
+    date: string;  
     location: string;
     skillLevel: string;
     sport: string;
