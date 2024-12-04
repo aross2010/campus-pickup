@@ -278,6 +278,7 @@ export default function GamesFeed() {
                                 <button
                                     className="bg-gradient-to-r from-[#e5a823] to-[#e57a23] text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 font-semibold"
                                     onClick={() => alert(`Joined the game: ${event.title}`)}
+                                    disabled={event.usersJoinedIds.length >= event.maxPlayers}
                                 >
                                     Reserve your spot
                                 </button>
