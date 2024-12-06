@@ -6,7 +6,7 @@ import {
   lastNames,
   majors,
   schools,
-  schoolYear,
+  schoolYears,
   seededEvents,
   sports,
 } from '../libs/data'
@@ -53,7 +53,7 @@ const seedUsers = async (numUsers: number) => {
         favoriteSports.push(sport)
       }
     }
-    const year = schoolYear[Math.floor(Math.random() * schoolYear.length)]
+    const year = schoolYears[Math.floor(Math.random() * schoolYears.length)]
 
     try {
       await client.user.create({
