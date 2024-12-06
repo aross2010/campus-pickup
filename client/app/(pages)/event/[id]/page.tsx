@@ -1,6 +1,52 @@
-import React from 'react'
+'use client';
 
-export default function EventDetail() {
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { notFound } from 'next/navigation';
+
+type Event = {
+  title: string;
+  skillLevel: string;
+  date: string;
+  location: string;
+  maxPlayers: number;
+  usersJoinedIds: string[];
+};
+
+export default function EventDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params); // Destructure `id` from params passed to the component
+
+  const [event, setEvent] = useState<Event | null>(null);
+  const [error, setError] = useState<string>('');
+
+  // Fetch event data when the component mounts
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`http://localhost:3000/event/${id}`)
+        .then((response) => {
+          setEvent(response.data);
+        })
+        .catch((err) => {
+          setError('Event not found');
+          notFound(); // Trigger 404 page if event not found
+        });
+    }
+  }, [id]);
+
+  if (error) {
+    return (
+      <div className="w-full min-h-screen text-center">
+        <h1 className="text-2xl text-red-500">Event Not Found</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-full min-h-screen">
       <div className="w-full">
@@ -13,31 +59,31 @@ export default function EventDetail() {
         </div>
 
         <div className="eventInfo space-y-2 mt-4 mx-[450px] mb-20 text-center">
-          <h1 className='text-5xl font-bold text-white'>Tennis Game</h1>
-          <h3 className='text-2xl font-bold text-white'>Level: </h3>
-          <h4 className="flex items-center gap-2 text-white">
+          <h1 className="text-5xl font-bold text-white">{event.title}</h1>
+          <h3 className="text-2xl font-bold text-white">Level: {event.skillLevel}</h3>
+          <h4 className="flex items-center gap-2 text-white text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 512 512">
               <path fill="white" d="M271.514 95.5h-32v178.111l115.613 54.948l13.737-28.902l-97.35-46.268z" />
               <path fill="white" d="M256 16C123.452 16 16 123.452 16 256s107.452 240 240 240s240-107.452 240-240S388.548 16 256 16m0 448c-114.875 0-208-93.125-208-208S141.125 48 256 48s208 93.125 208 208s-93.125 208-208 208" />
             </svg>
-            Time
+            {new Date(event.date).toISOString().split('T')[1].split('.')[0]} on {new Date(event.date).toISOString().split('T')[0]}
           </h4>
 
-          <h4 className="flex items-center gap-2 text-white">
+          <h4 className="flex items-center gap-2 text-white text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
               <path fill="white" d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7" />
             </svg>
-            Location
+            {event.location}
           </h4>
 
-          <h4 className="flex items-center gap-2 text-white">
+          <h4 className="flex items-center gap-2 text-white text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
               <path fill="white" d="M3.5 8a5.5 5.5 0 1 1 8.596 4.547a9.005 9.005 0 0 1 5.9 8.18a.751.751 0 0 1-1.5.045a7.5 7.5 0 0 0-14.993 0a.75.75 0 0 1-1.499-.044a9.005 9.005 0 0 1 5.9-8.181A5.5 5.5 0 0 1 3.5 8M9 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8m8.29 4q-.221 0-.434.03a.75.75 0 1 1-.212-1.484a4.53 4.53 0 0 1 3.38 8.097a6.69 6.69 0 0 1 3.956 6.107a.75.75 0 0 1-1.5 0a5.19 5.19 0 0 0-3.696-4.972l-.534-.16v-1.676l.41-.209A3.03 3.03 0 0 0 17.29 8" />
             </svg>
-            Players
+            {event.usersJoinedIds.length}/{event.maxPlayers}
           </h4>
-
         </div>
+        
         <div className="flex justify-center mb-[150px]">
           <section className="bg-white w-1/2 rounded-lg py-8 lg:py-16 antialiased">
             <div className="max-w-2xl mx-auto px-4">
@@ -104,7 +150,7 @@ export default function EventDetail() {
                   <button type="button"
                     className="flex items-center text-sm text-gray-500 hover:underline font-medium">
                     <svg className="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
                     </svg>
                     Reply
                   </button>

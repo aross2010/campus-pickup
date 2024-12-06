@@ -24,8 +24,9 @@ import {
   createReply,
   deleteComment,
 } from './controllers/discussion'
+import cors from 'cors'
 
-// TODO: Organize routes/functions - login user after registration - restrict users from post or put routes until their email is verified - emails
+
 
 const app = express()
 const PORT = 3000
@@ -33,6 +34,7 @@ const PORT = 3000
 initializePassport()
 app.use(passport.initialize())
 app.use(express.json())
+app.use(cors()); 
 
 /* Authentication routes */
 
