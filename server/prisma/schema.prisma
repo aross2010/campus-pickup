@@ -59,26 +59,26 @@ model School {
 }
 
 model User {
-  id                            String     @id @default(auto()) @map("_id") @db.ObjectId
+  id                            String      @id @default(auto()) @map("_id") @db.ObjectId
   firstName                     String
   lastName                      String
-  email                         String     @unique
-  emailVerified                 Boolean    @default(true)
+  email                         String      @unique
+  emailVerified                 Boolean     @default(true)
   password                      String
   pronouns                      String?
-  role                          String     @default("USER")
-  createdAt                     DateTime   @default(now())
-  updatedAt                     DateTime   @updatedAt
+  role                          String      @default("USER")
+  createdAt                     DateTime    @default(now())
+  updatedAt                     DateTime    @updatedAt
   profileImage                  String?
   coverImage                    String?
   bio                           String?
   major                         String?
   favoriteSports                Sport[]
-  school                        School     @relation(fields: [schoolId], references: [id])
-  schoolId                      String     @db.ObjectId
-  schoolYear                    SchoolYear
-  eventConfirmationNotification Boolean    @default(true)
-  discussionReplyNotification   Boolean    @default(true)
+  school                        School      @relation(fields: [schoolId], references: [id])
+  schoolId                      String      @db.ObjectId
+  schoolYear                    SchoolYear?
+  eventConfirmationNotification Boolean     @default(true)
+  discussionReplyNotification   Boolean     @default(true)
 
   eventsHosted Event[]   @relation("eventsHosted") // Events the user has created
   comments     Comment[] // Comments the user has made
@@ -96,6 +96,7 @@ model Event {
   description String
   date        DateTime
   createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   sport       Sport
   skillLevel  SkillLevel
   location    String

@@ -371,7 +371,7 @@ export const sports = [
   'Volleyball',
 ] as const
 
-export const schoolYear = [
+export const schoolYears = [
   'Freshman',
   'Sophomore',
   'Junior',
