@@ -5,9 +5,13 @@ import { initializePassport } from './passport-config'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import cors from 'cors'
+import { isvalidEmail } from './helpers/valid-email'
+import { equal } from 'assert'
 import { v2 as cloudinary } from 'cloudinary'
 import { schoolYears, skillLevels, sports } from './libs/data'
 import { UserToken } from './libs/types'
+
 
 const app = express()
 const PORT = 3000
@@ -15,6 +19,7 @@ const PORT = 3000
 initializePassport()
 app.use(passport.initialize())
 app.use(express.json())
+app.use(cors()); 
 
 const generateToken = (user: { id: string; email: string }) => {
   return jwt.sign(user, process.env.JWT_SECRET as string, { expiresIn: '30d' })
