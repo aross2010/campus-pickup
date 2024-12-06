@@ -12,6 +12,7 @@ export const initializePassport = () => {
   passport.use(
     new JWTStrategy(options, async (jwtPayload, done) => {
       try {
+        console.log('dee')
         const user = await client.user.findUnique({
           where: { id: jwtPayload.id },
         })
