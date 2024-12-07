@@ -2,6 +2,9 @@ import { Request, Response } from 'express'
 import client from '../libs/prisma'
 import { sports, skillLevels } from '../libs/data'
 import { UserToken } from '../libs/types'
+import { Event } from '@prisma/client'
+import { sendOffWaitingEmail } from '../helpers/send-off-waiting-email'
+import { sendEventConfirmation } from '../helpers/send-event-confirmation'
 
 export const getAllEvents = async (req: Request, res: Response) => {
   const events = await client.event.findMany()
@@ -331,6 +334,14 @@ export const addUserToPlayersJoined = async (
     res
       .status(201)
       .json({ message: 'Successfully joined event.', updatedEvent })
+
+    const userJoined = await client.user.findUnique({
+      where: {
+        id: userId,
+      },
+    })
+
+    await sendEventConfirmation(event, userJoined)
   } catch (error) {
     next(error)
   }
@@ -395,11 +406,11 @@ export const removeUserFromPlayersJoined = async (
     const user = req.user as UserToken
     const userId = user.id
 
-    const event = await client.event.findUnique({
+    const event = (await client.event.findUnique({
       where: {
         id,
       },
-    })
+    })) as Event
 
     if (!event) {
       res.status(404).json({ error: 'Event not found.' })
@@ -409,18 +420,39 @@ export const removeUserFromPlayersJoined = async (
       res.status(400).json({ error: 'You have not joined this event.' })
     }
 
+    const updatedPlayers = event.usersJoinedIds.filter(
+      (id: string) => id !== userId
+    )
+
+    let nextPlayerId: string | undefined
+
+    if (event.usersWaitingIds.length > 0) {
+      const nextPlayerId = event.usersWaitingIds.shift() as string
+      updatedPlayers.push(nextPlayerId)
+    }
+
     const updatedEvent = await client.event.update({
       where: {
         id,
       },
       data: {
         usersJoinedIds: {
-          set: event.usersJoinedIds.filter((id: string) => id !== userId),
+          set: updatedPlayers,
         },
       },
     })
 
     res.status(201).json({ message: 'Successfully left event.', updatedEvent })
+
+    if (nextPlayerId) {
+      const nextPlayer = await client.user.findUnique({
+        where: {
+          id: nextPlayerId,
+        },
+      })
+      // send email that they are off waiting list
+      await sendOffWaitingEmail(event, nextPlayer)
+    }
   } catch (error) {
     next(error)
   }
