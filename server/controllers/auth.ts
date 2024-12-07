@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import client from '../libs/prisma'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../helpers/generate-token'
+import { sendWelcomeEmail } from '../helpers/send-welcome-email'
+import { School } from '@prisma/client'
 
 export const registerUser = async (req: Request, res: Response, next: any) => {
   const { email, password, firstName, lastName } = req.body
@@ -39,16 +41,13 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
       res.status(400).json({ error: 'Invalid email address.' })
     }
 
-    const schoolId = await client.school.findFirst({
+    const school = (await client.school.findFirst({
       where: {
         emailDomain: emailDomain,
       },
-      select: {
-        id: true,
-      },
-    })
+    })) as School
 
-    if (!schoolId) {
+    if (!school.id) {
       res.status(400).json({ error: 'Invalid university email.' })
     }
 
@@ -60,13 +59,15 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
         password: hashedPassword,
         firstName,
         lastName,
-        schoolId: schoolId.id,
+        schoolId: school.id,
       },
     })
 
     const token = generateToken({ id: user.id, email: user.email })
 
     res.status(201).json({ user, token })
+
+    await sendWelcomeEmail(firstName, user.id, school, email)
   } catch (error) {
     next(error)
   }
