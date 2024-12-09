@@ -48,9 +48,12 @@ export default function SignIn() {
         email,
         password,
       });
-
+      if (response.data.token) {
+        // Save the token to localStorage
+        localStorage.setItem('authToken', response.data.token);
+      }
       alert('Login successful');
-      router.push('/profile/settings');
+      router.push('/');
     } catch (error: any) {
       setError(error.response?.data?.error || 'An error occurred');
     }
