@@ -96,7 +96,7 @@ model Event {
   description String
   date        DateTime
   createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  updatedAt   DateTime?  @updatedAt
   sport       Sport
   skillLevel  SkillLevel
   location    String

@@ -63,6 +63,17 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
       },
     })
 
+    await client.school.update({
+      where: {
+        id: school.id,
+      },
+      data: {
+        numUsers: {
+          increment: 1,
+        },
+      },
+    })
+
     const token = generateToken({ id: user.id, email: user.email })
 
     res.status(201).json({ user, token })
