@@ -5,6 +5,7 @@ import { UserToken } from '../libs/types'
 import { Event } from '@prisma/client'
 import { sendOffWaitingEmail } from '../helpers/send-off-waiting-email'
 import { sendEventConfirmation } from '../helpers/send-event-confirmation'
+import { name } from 'ejs'
 
 export const getAllEvents = async (
   req: Request,
@@ -53,7 +54,9 @@ export const getEventsBySchool = async (
   const { school } = req.params
   const events = await client.event.findMany({
     where: {
-      school,
+      school: {
+        name: school
+      },
     },
   })
   return res.json(events)
