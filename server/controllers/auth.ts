@@ -3,24 +3,30 @@ import client from '../libs/prisma'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../helpers/generate-token'
 import { sendWelcomeEmail } from '../helpers/send-welcome-email'
-import { School } from '@prisma/client'
+import { School, User } from '@prisma/client'
 
-export const registerUser = async (req: Request, res: Response, next: any) => {
+export const registerUser = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { email, password, firstName, lastName } = req.body
 
   try {
     if (!email || !password) {
-      res.status(400).json({ error: 'Email and password are required.' })
+      return res.status(400).json({ error: 'Email and password are required.' })
     }
 
     if (password.length < 8) {
-      res
+      return res
         .status(400)
         .json({ error: 'Password must be at least 8 characters long.' })
     }
 
     if (!firstName && !lastName) {
-      res.status(400).json({ error: 'First name and last name are required.' })
+      return res
+        .status(400)
+        .json({ error: 'First name and last name are required.' })
     }
 
     const userExists = await client.user.findUnique({
@@ -30,7 +36,7 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
     })
 
     if (userExists) {
-      res
+      return res
         .status(400)
         .json({ error: 'Account with email address already exists.' })
     }
@@ -38,7 +44,7 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
     const emailDomain = email.split('@')[1]
 
     if (!emailDomain) {
-      res.status(400).json({ error: 'Invalid email address.' })
+      return res.status(400).json({ error: 'Invalid email address.' })
     }
 
     const school = (await client.school.findFirst({
@@ -48,7 +54,7 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
     })) as School
 
     if (!school.id) {
-      res.status(400).json({ error: 'Invalid university email.' })
+      return res.status(400).json({ error: 'Invalid university email.' })
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -84,7 +90,11 @@ export const registerUser = async (req: Request, res: Response, next: any) => {
   }
 }
 
-export const loginUser = async (req: Request, res: Response, next: any) => {
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { email, password } = req.body
 
   try {
@@ -95,31 +105,44 @@ export const loginUser = async (req: Request, res: Response, next: any) => {
     })
 
     if (!user) {
-      res.status(401).json({ error: 'Invalid email or password.' })
+      return res.status(401).json({ error: 'Invalid email or password.' })
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password)
 
     if (!passwordMatch) {
-      res.status(401).json({ error: 'Invalid email or password.' })
+      return res.status(401).json({ error: 'Invalid email or password.' })
     }
 
     const token = generateToken({ id: user.id, email: user.email })
-    res.json({ token })
+    return res.status(200).json({ user, token })
   } catch (error) {
     next(error)
   }
 }
 
-export const verifyEmail = async (req: Request, res: Response) => {
+export const verifyEmail = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const { id } = req.params
-  const user = await client.user.update({
+  const user = (await client.user.update({
     where: {
       id,
     },
     data: {
       emailVerified: true,
     },
+  })) as User
+
+  if (user.emailVerified) {
+    return res.status(400).json({
+      message: 'Email already verified.',
+    })
+  }
+
+  return res.status(200).json({
+    message: 'Email verified.',
+    user,
   })
-  res.json(user)
 }

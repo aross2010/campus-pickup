@@ -6,22 +6,31 @@ import { Event } from '@prisma/client'
 import { sendOffWaitingEmail } from '../helpers/send-off-waiting-email'
 import { sendEventConfirmation } from '../helpers/send-event-confirmation'
 
-export const getAllEvents = async (req: Request, res: Response) => {
+export const getAllEvents = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const events = await client.event.findMany()
-  res.json(events)
+  return res.json(events)
 }
 
-export const getEventsBySport = async (req: Request, res: Response) => {
+export const getEventsBySport = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const { sport } = req.params
   const events = await client.event.findMany({
     where: {
       sport,
     },
   })
-  res.json(events)
+  return res.json(events)
 }
 
-export const getEventById = async (req: Request, res: Response) => {
+export const getEventById = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const { id } = req.params
   const event = await client.event.findUnique({
     where: {
@@ -32,22 +41,29 @@ export const getEventById = async (req: Request, res: Response) => {
     },
   })
   if (!event) {
-    res.status(404).json({ error: 'Event not found' })
+    return res.status(404).json({ error: 'Event not found' })
   }
   res.json(event)
 }
 
-export const getEventsBySchool = async (req: Request, res: Response) => {
+export const getEventsBySchool = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const { school } = req.params
   const events = await client.event.findMany({
     where: {
       school,
     },
   })
-  res.json(events)
+  return res.json(events)
 }
 
-export const createEvent = async (req: Request, res: Response, next: any) => {
+export const createEvent = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const {
     title,
     description,
@@ -76,45 +92,45 @@ export const createEvent = async (req: Request, res: Response, next: any) => {
   }
 
   if (title.length < 4 || title.length > 50) {
-    res
+    return res
       .status(400)
       .json({ error: 'Title must be between 4 and 50 characters.' })
   }
 
   if (description.length < 10 || description.length > 500) {
-    res
+    return res
       .status(400)
       .json({ error: 'Description must be between 10 and 500 characters.' })
   }
 
   // verify date contains a time
   if (!date.includes('T')) {
-    res.status(400).json({ error: 'Invalid date format.' })
+    return res.status(400).json({ error: 'Invalid date format.' })
   }
 
   // verify date is in the future
   if (new Date(date) < new Date()) {
-    res.status(400).json({ error: 'Date must be in the future.' })
+    return res.status(400).json({ error: 'Date must be in the future.' })
   }
 
   if (!sports.includes(sport)) {
-    res.status(400).json({ error: 'Invalid sport.' })
+    return res.status(400).json({ error: 'Invalid sport.' })
   }
 
   if (!skillLevels.includes(skillLevel)) {
-    res.status(400).json({ error: 'Invalid skill level.' })
+    return res.status(400).json({ error: 'Invalid skill level.' })
   }
 
   if (typeof coed !== 'boolean') {
-    res.status(400).json({ error: 'Invalid coed setting.' })
+    return res.status(400).json({ error: 'Invalid coed setting.' })
   }
 
   if (typeof maxPlayers !== 'number' || maxPlayers < 2 || maxPlayers > 50) {
-    res.status(400).json({ error: 'Invalid max players.' })
+    return res.status(400).json({ error: 'Invalid max players.' })
   }
 
   if (location.length < 2 || location.length > 50) {
-    res
+    return res
       .status(400)
       .json({ error: 'Location must be between 2 and 50 characters.' })
   }
@@ -126,7 +142,7 @@ export const createEvent = async (req: Request, res: Response, next: any) => {
   })
 
   if (!hostUser) {
-    res.status(400).json({ error: 'Invalid host.' })
+    return res.status(400).json({ error: 'Invalid host.' })
   }
 
   try {
@@ -145,16 +161,25 @@ export const createEvent = async (req: Request, res: Response, next: any) => {
         discussion: {
           create: {},
         },
+        usersJoinedIds: {
+          push: hostId,
+        },
       },
     })
 
-    res.status(201).json(event)
+    return res
+      .status(201)
+      .json({ message: 'Event successfully created.', event })
   } catch (error) {
     next(error)
   }
 }
 
-export const deleteEvent = async (req: Request, res: Response, next: any) => {
+export const deleteEvent = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -167,7 +192,9 @@ export const deleteEvent = async (req: Request, res: Response, next: any) => {
     })
 
     if (eventToDelete.hostId !== user.id) {
-      res.status(403).json({ error: 'You are not the host of this event.' })
+      return res
+        .status(403)
+        .json({ error: 'You are not the host of this event.' })
     }
 
     await client.event.delete({
@@ -176,13 +203,17 @@ export const deleteEvent = async (req: Request, res: Response, next: any) => {
       },
     })
     // send email to all users who joined the event that it was cancelled
-    res.json({ message: 'Event successfully deleted.' })
+    return res.json({ message: 'Event successfully deleted.' })
   } catch (error) {
     next(error)
   }
 }
 
-export const updateEvent = async (req: Request, res: Response, next: any) => {
+export const updateEvent = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { id } = req.params
   const {
     title,
@@ -205,14 +236,16 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
     })
 
     if (eventToUpdate.hostId !== user.id) {
-      res.status(403).json({ error: 'You are not the host of this event.' })
+      return res
+        .status(403)
+        .json({ error: 'You are not the host of this event.' })
     }
 
     const data: any = {}
 
     if (title) {
       if (title.length < 4 || title.length > 50) {
-        res
+        return res
           .status(400)
           .json({ error: 'Title must be between 4 and 50 characters.' })
       }
@@ -221,7 +254,7 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
 
     if (description) {
       if (description.length < 10 || description.length > 500) {
-        res.status(400).json({
+        return res.status(400).json({
           error: 'Description must be between 10 and 500 characters.',
         })
       }
@@ -231,12 +264,12 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
     if (date) {
       // Ensure date contains a time
       if (!date.includes('T')) {
-        res.status(400).json({ error: 'Invalid date format.' })
+        return res.status(400).json({ error: 'Invalid date format.' })
       }
 
       // Ensure date is in the future
       if (new Date(date) < new Date()) {
-        res.status(400).json({ error: 'Date must be in the future.' })
+        return res.status(400).json({ error: 'Date must be in the future.' })
       }
 
       data['date'] = date
@@ -244,21 +277,21 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
 
     if (sport) {
       if (!sports.includes(sport)) {
-        res.status(400).json({ error: 'Invalid sport.' })
+        return res.status(400).json({ error: 'Invalid sport.' })
       }
       data['sport'] = sport
     }
 
     if (skillLevel) {
       if (!skillLevels.includes(skillLevel)) {
-        res.status(400).json({ error: 'Invalid skill level.' })
+        return res.status(400).json({ error: 'Invalid skill level.' })
       }
       data['skillLevel'] = skillLevel
     }
 
     if (location) {
       if (location.length < 2 || location.length > 50) {
-        res
+        return res
           .status(400)
           .json({ error: 'Location must be between 2 and 50 characters.' })
       }
@@ -267,18 +300,42 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
 
     if (coed !== undefined) {
       if (typeof coed !== 'boolean') {
-        res.status(400).json({ error: 'Invalid coed setting.' })
+        return res.status(400).json({ error: 'Invalid coed setting.' })
       }
       data['coed'] = coed
     }
 
     if (maxPlayers !== undefined) {
       if (typeof maxPlayers !== 'number' || maxPlayers < 2 || maxPlayers > 50) {
-        res.status(400).json({
+        return res.status(400).json({
           error: 'Max players must be a number between 2 and 50.',
         })
       }
+
+      if (eventToUpdate.usersJoinedIds.length > maxPlayers) {
+        return res.status(400).json({
+          error:
+            'Max players cannot be less than the number of players joined.',
+        })
+      }
+
       data['maxPlayers'] = maxPlayers
+
+      // if maxPlayers is increased, move players from waiting list to joined list
+      if (maxPlayers > eventToUpdate.maxPlayers) {
+        const playersToMove = eventToUpdate.usersWaitingIds.slice(
+          0,
+          maxPlayers - eventToUpdate.maxPlayers
+        )
+        data['usersJoinedIds'] = {
+          push: playersToMove,
+        }
+        data['usersWaitingIds'] = {
+          set: eventToUpdate.usersWaitingIds.slice(
+            maxPlayers - eventToUpdate.maxPlayers
+          ),
+        }
+      }
     }
 
     const event = await client.event.update({
@@ -286,7 +343,10 @@ export const updateEvent = async (req: Request, res: Response, next: any) => {
       data: data,
     })
 
-    res.json(event)
+    return res.status(201).json({
+      message: 'Event successfully updated.',
+      event,
+    })
   } catch (error) {
     next(error)
   }
@@ -296,7 +356,7 @@ export const addUserToPlayersJoined = async (
   req: Request,
   res: Response,
   next: any
-) => {
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -310,15 +370,17 @@ export const addUserToPlayersJoined = async (
     })
 
     if (!event) {
-      res.status(404).json({ error: 'Event not found.' })
+      return res.status(404).json({ error: 'Event not found.' })
     }
 
     if (event.usersJoinedIds.includes(userId)) {
-      res.status(400).json({ error: 'You have already joined this event.' })
+      return res
+        .status(400)
+        .json({ error: 'You have already joined this event.' })
     }
 
     if (event.usersJoinedIds.length >= event.maxPlayers) {
-      res.status(400).json({ error: 'Event is full.' })
+      return res.status(400).json({ error: 'Event is full.' })
     }
 
     const updatedEvent = await client.event.update({
@@ -351,7 +413,7 @@ export const addUserToPlayersWaiting = async (
   req: Request,
   res: Response,
   next: any
-) => {
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -365,15 +427,19 @@ export const addUserToPlayersWaiting = async (
     })
 
     if (!event) {
-      res.status(404).json({ error: 'Event not found.' })
+      return res.status(404).json({ error: 'Event not found.' })
     }
 
     if (event.usersJoinedIds.includes(userId)) {
-      res.status(400).json({ error: 'You have already joined this event.' })
+      return res
+        .status(400)
+        .json({ error: 'You have already joined this event.' })
     }
 
     if (event.usersWaitingIds.includes(userId)) {
-      res.status(400).json({ error: 'You are already on the waiting list.' })
+      return res
+        .status(400)
+        .json({ error: 'You are already on the waiting list.' })
     }
 
     const updatedEvent = await client.event.update({
@@ -387,7 +453,7 @@ export const addUserToPlayersWaiting = async (
       },
     })
 
-    res
+    return res
       .status(201)
       .json({ message: 'Successfully joined waiting list.', updatedEvent })
   } catch (error) {
@@ -399,7 +465,7 @@ export const removeUserFromPlayersJoined = async (
   req: Request,
   res: Response,
   next: any
-) => {
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -413,11 +479,11 @@ export const removeUserFromPlayersJoined = async (
     })) as Event
 
     if (!event) {
-      res.status(404).json({ error: 'Event not found.' })
+      return res.status(404).json({ error: 'Event not found.' })
     }
 
     if (!event.usersJoinedIds.includes(userId)) {
-      res.status(400).json({ error: 'You have not joined this event.' })
+      return res.status(400).json({ error: 'You have not joined this event.' })
     }
 
     const updatedPlayers = event.usersJoinedIds.filter(
@@ -462,7 +528,7 @@ export const removeUserFromPlayersWaiting = async (
   req: Request,
   res: Response,
   next: any
-) => {
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -476,11 +542,11 @@ export const removeUserFromPlayersWaiting = async (
     })
 
     if (!event) {
-      res.status(404).json({ error: 'Event not found.' })
+      return res.status(404).json({ error: 'Event not found.' })
     }
 
     if (!event.usersWaitingIds.includes(userId)) {
-      res.status(400).json({ error: 'You are not on the waiting list.' })
+      return res.status(400).json({ error: 'You are not on the waiting list.' })
     }
 
     const updatedEvent = await client.event.update({
@@ -494,7 +560,7 @@ export const removeUserFromPlayersWaiting = async (
       },
     })
 
-    res
+    return res
       .status(201)
       .json({ message: 'Successfully left waiting list.', updatedEvent })
   } catch (error) {

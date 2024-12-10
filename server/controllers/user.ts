@@ -5,7 +5,10 @@ import { sports, schoolYears } from '../libs/data'
 import { v2 as cloudinary } from 'cloudinary'
 import bcrypt from 'bcryptjs'
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   const { id } = req.params
   const user = await client.user.findUnique({
     where: {
@@ -20,16 +23,16 @@ export const getUserById = async (req: Request, res: Response) => {
     },
   })
   if (!user) {
-    res.status(404).json({ error: 'User not found' })
+    return res.status(404).json({ error: 'User not found' })
   }
-  res.json(user)
+  res.status(200).json(user)
 }
 
 export const updateUserById = async (
   req: Request,
   res: Response,
   next: any
-) => {
+): Promise<any> => {
   const { id } = req.params
   const {
     firstName,
@@ -51,7 +54,7 @@ export const updateUserById = async (
     const user = req.user as UserToken
 
     if (id !== user.id) {
-      res
+      return res
         .status(403)
         .json({ error: 'You are not authorized to edit this user.' })
     }
@@ -82,7 +85,7 @@ export const updateUserById = async (
       })
 
       if (!uploadResponse || !uploadResponse.secure_url) {
-        res.status(400).json({ error: 'Error uploading profile image.' })
+        return res.status(400).json({ error: 'Error uploading profile image.' })
       }
 
       data['profileImage'] = uploadResponse.secure_url
@@ -94,7 +97,7 @@ export const updateUserById = async (
       })
 
       if (!uploadResponse || !uploadResponse.secure_url) {
-        res.status(400).json({ error: 'Error uploading cover image.' })
+        return res.status(400).json({ error: 'Error uploading cover image.' })
       }
 
       data['coverImage'] = uploadResponse.secure_url
@@ -102,7 +105,7 @@ export const updateUserById = async (
 
     if (newPassword) {
       if (newPassword.length < 8) {
-        res
+        return res
           .status(400)
           .json({ error: 'Password must be at least 8 characters long.' })
       }
@@ -114,26 +117,26 @@ export const updateUserById = async (
     if (favoriteSports) {
       favoriteSports.forEach((sport: any) => {
         if (!sports.includes(sport)) {
-          res.status(400).json({ error: 'Invalid sport.' })
+          return res.status(400).json({ error: 'Invalid sport.' })
         }
       })
     }
 
     if (schoolYear) {
       if (!schoolYears.includes(schoolYear)) {
-        res.status(400).json({ error: 'Invalid school year.' })
+        return res.status(400).json({ error: 'Invalid school year.' })
       }
     }
 
     if (eventConfirmationNotification) {
       if (typeof eventConfirmationNotification !== 'boolean') {
-        res.status(400).json({ error: 'Invalid notification setting.' })
+        return res.status(400).json({ error: 'Invalid notification setting.' })
       }
     }
 
     if (discussionReplyNotification) {
       if (typeof discussionReplyNotification !== 'boolean') {
-        res.status(400).json({ error: 'Invalid notification setting.' })
+        return res.status(400).json({ error: 'Invalid notification setting.' })
       }
     }
 
@@ -144,7 +147,7 @@ export const updateUserById = async (
       data: data,
     })
 
-    res.json(updatedUser)
+    return res.status(200).json(updatedUser)
   } catch (error) {
     next(error)
   }

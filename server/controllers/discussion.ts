@@ -5,7 +5,11 @@ import { Comment, Discussion, Event } from '@prisma/client'
 import { sendNewCommentEmail } from '../helpers/send-new-comment-email'
 import { sendNewReplyEmail } from '../helpers/send-new-reply-email'
 
-export const createComment = async (req: Request, res: Response, next: any) => {
+export const createComment = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { discussionId } = req.params
   const { text } = req.body
 
@@ -28,15 +32,17 @@ export const createComment = async (req: Request, res: Response, next: any) => {
     })) as Event
 
     if (!discussion) {
-      res.status(404).json({ error: 'Discussion not found.' })
+      return res.status(404).json({ error: 'Discussion not found.' })
     }
 
     if (!text || text.trim().length === 0) {
-      res.status(400).json({ error: 'Comment text is required.' })
+      return res.status(400).json({ error: 'Comment text is required.' })
     }
 
     if (!event.usersJoinedIds.includes(userId)) {
-      res.status(403).json({ error: 'You must join the event to comment.' })
+      return res
+        .status(403)
+        .json({ error: 'You must join the event to comment.' })
     }
 
     const comment = await client.comment.create({
@@ -47,7 +53,14 @@ export const createComment = async (req: Request, res: Response, next: any) => {
       },
     })
 
-    res.status(201).json(comment)
+    res.status(201).json({
+      message: 'Comment successfully created.',
+      comment,
+    })
+
+    if (event.hostId === userId) {
+      return // do not send email to host if host is the one commenting
+    }
 
     const host = await client.user.findUnique({
       where: {
@@ -61,7 +74,11 @@ export const createComment = async (req: Request, res: Response, next: any) => {
   }
 }
 
-export const createReply = async (req: Request, res: Response, next: any) => {
+export const createReply = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { commentId } = req.params
   const { text } = req.body
 
@@ -70,7 +87,7 @@ export const createReply = async (req: Request, res: Response, next: any) => {
     const userId = user.id
 
     if (!text || text.trim().length === 0) {
-      res.status(400).json({ error: 'Reply text is required.' })
+      return res.status(400).json({ error: 'Reply text is required.' })
     }
 
     const comment = await client.comment.findUnique({
@@ -98,11 +115,13 @@ export const createReply = async (req: Request, res: Response, next: any) => {
     })) as Event
 
     if (!comment) {
-      res.status(404).json({ error: 'Comment not found.' })
+      return res.status(404).json({ error: 'Comment not found.' })
     }
 
     if (!event.usersJoinedIds.includes(userId)) {
-      res.status(403).json({ error: 'You must join the event to reply.' })
+      return res
+        .status(403)
+        .json({ error: 'You must join the event to reply.' })
     }
 
     const reply = (await client.comment.create({
@@ -133,7 +152,11 @@ export const createReply = async (req: Request, res: Response, next: any) => {
   }
 }
 
-export const deleteComment = async (req: Request, res: Response, next: any) => {
+export const deleteComment = async (
+  req: Request,
+  res: Response,
+  next: any
+): Promise<any> => {
   const { id } = req.params
 
   try {
@@ -147,11 +170,13 @@ export const deleteComment = async (req: Request, res: Response, next: any) => {
     })
 
     if (!comment) {
-      res.status(404).json({ error: 'Comment not found.' })
+      return res.status(404).json({ error: 'Comment not found.' })
     }
 
     if (comment.userId !== userId) {
-      res.status(403).json({ error: 'You are not the author of this comment.' })
+      return res
+        .status(403)
+        .json({ error: 'You are not the author of this comment.' })
     }
 
     await client.comment.delete({
@@ -160,7 +185,7 @@ export const deleteComment = async (req: Request, res: Response, next: any) => {
       },
     })
 
-    res.json({ message: 'Comment successfully deleted.' })
+    return res.json({ message: 'Comment successfully deleted.' })
   } catch (error) {
     next(error)
   }
