@@ -68,12 +68,6 @@ const EventsPage = () => {
                 <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">Select School:</label>
                 <ul className="list-none p-0">
-                    <li 
-                        className={`cursor-pointer py-2 px-4 text-white ${school === "" ? "bg-gray-400" : ""}`}
-                        onClick={() => setSchool("")}
-                    >
-                        Search events by School
-                    </li>
                     {schools.map((schoolItem) => (
                         <li
                             key={schoolItem.id}
