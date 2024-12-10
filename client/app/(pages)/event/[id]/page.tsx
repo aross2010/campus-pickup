@@ -13,8 +13,8 @@ type Event = {
   usersJoinedIds: string[];
 };
 
-export default function EventDetail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params); // Destructure `id` from params passed to the component
+export default function EventDetail({ params }: { params: { id: string } }) {
+  const { id } = params; // Destructure `id` from params passed to the component
 
   const [event, setEvent] = useState<Event | null>(null);
   const [error, setError] = useState<string>('');
@@ -52,8 +52,8 @@ export default function EventDetail({ params }: { params: Promise<{ id: string }
       <div className="w-full">
         <div className="img">
           <img
-            src="https://imageio.forbes.com/specials-images/imageserve/61290485e59b1a3c399d34e7/0x0.jpg?format=jpg&crop=2699,1519,x0,y0,safe&height=900&width=1600&fit=bounds"
-            className="object-fill object-top w-full h-[550px]"
+            src="https://www.pgcps.org/globalassets/shared/images/herobanner/h-sports-various-sport-equipment-on-green-background-banner.jpg"
+            className="object-fill object-top w-full h-[450px]"
             alt="Event Image"
           />
         </div>

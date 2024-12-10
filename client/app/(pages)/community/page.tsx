@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from 'next/image';
+import Link from "next/link";
 
 const SchoolEventsPage = () => {
     const [schools, setSchools] = useState<{ id: number; name: string }[]>([]);
@@ -66,19 +67,19 @@ const SchoolEventsPage = () => {
             </div>
             <div className="container mx-auto p-4">
                 <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Select School:</label>
-                <ul className="list-none p-0">
-                    {schools.map((schoolItem) => (
-                        <li
-                            key={schoolItem.id}
-                            className={`cursor-pointer py-2 px-4 m-3 rounded bg-white hover:bg-gray-400 ${school === schoolItem.name ? "bg-gray-400 font-bold" : ""}`}
-                            onClick={() => setSchool(schoolItem.name)} // Set the school name on click
-                        >
-                            {schoolItem.name}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                    <label className="block text-sm font-medium mb-1">Select School:</label>
+                    <ul className="list-none p-0">
+                        {schools.map((schoolItem) => (
+                            <li
+                                key={schoolItem.id}
+                                className={`cursor-pointer py-2 px-4 m-3 rounded bg-white hover:bg-gray-400 ${school === schoolItem.name ? "bg-gray-400 font-bold" : ""}`}
+                                onClick={() => setSchool(schoolItem.name)} // Set the school name on click
+                            >
+                                {schoolItem.name}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
                 {error && <p className="text-red-500 mt-4">{error}</p>}
 
@@ -155,7 +156,9 @@ const SchoolEventsPage = () => {
                                         <p className="text-m text-gray-400 uppercase font-semibold">{event.location}</p>
                                     </div>
                                 </div>
-                                <h2 className="text-2xl font-bold text-white"> {event.title}</h2>
+                                <h2 className="text-2xl font-bold text-white">
+                                    <Link href={`/event/${event.id}`}>{event.title}</Link>
+                                </h2>
                                 <p className="text-m text-gray-400 mt-2">{event.description}</p>
                                 <p className="text-m text-gray-400 mt-2">Hosted by: <span className='text-white font-medium'>{event.id}</span></p>
                                 <div className="mt-9 flex justify-between">
