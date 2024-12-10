@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from 'next/image';
 
-const EventsPage = () => {
+const SchoolEventsPage = () => {
     const [schools, setSchools] = useState<{ id: number; name: string }[]>([]);
     const [school, setSchool] = useState<string>(""); // Selected school
     const [events, setEvents] = useState<any[]>([]); // Events for the selected school
@@ -178,4 +178,4 @@ const EventsPage = () => {
     );
 };
 
-export default EventsPage;
+export default SchoolEventsPage;
