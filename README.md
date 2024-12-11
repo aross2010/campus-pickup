@@ -28,12 +28,11 @@ Users are able to create an account and log into the account. From there, they c
 > Follow the instructions to set it up locally.
 * Fork and clone the repo into your local machine
 * Then navigate to the `server` folder and run `npm install` to install the dependencies for the _backend_
-* Still inside the __server__, create an `.env` file. Set variable ```JWT_SECRET``` to any value that you want.
-* Then run `npm run build`, you will see the server built.
+* Still inside the __server__, run `npm run build`, you will see the server built.
 * Next, navigate to the `client` folder and run `npm install` to install the dependencies for the _frontend_
 * Still inside the __client__, run `npm run build` to build the client.
 * Finally, run `nodemon app.ts` inside the `server` folder; and run `npm run dev` inside the `client` folder to get the app run. You will see the respective 'Server running on port 3000' on server and 'URL' for client
--
+
 
 ### Frontend
 
