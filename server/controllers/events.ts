@@ -55,7 +55,7 @@ export const getEventsBySchool = async (
   const events = await client.event.findMany({
     where: {
       school: {
-        name: school
+        name: school,
       },
     },
   })
@@ -78,6 +78,8 @@ export const createEvent = async (
     maxPlayers,
   } = req.body
 
+  console.log(req.body)
+
   const user = req.user as UserToken
   const hostId = user.id
 
@@ -88,10 +90,10 @@ export const createEvent = async (
     !sport ||
     !skillLevel ||
     !location ||
-    !hostId ||
-    coed === undefined
+    !hostId
   ) {
-    res.status(400).json({ error: 'Missing required fields.' })
+    console.log(title, description, date, sport, skillLevel, location, hostId)
+    return res.status(400).json({ error: 'Missing required fields.' })
   }
 
   if (title.length < 4 || title.length > 50) {
@@ -138,6 +140,8 @@ export const createEvent = async (
       .json({ error: 'Location must be between 2 and 50 characters.' })
   }
 
+  console.log('hostId', hostId)
+
   const hostUser = await client.user.findUnique({
     where: {
       id: hostId,
@@ -148,6 +152,8 @@ export const createEvent = async (
     return res.status(400).json({ error: 'Invalid host.' })
   }
 
+  console.log('hostUser', hostUser)
+
   try {
     const event = await client.event.create({
       data: {
@@ -157,7 +163,6 @@ export const createEvent = async (
         sport,
         skillLevel,
         location,
-        coed,
         hostId,
         maxPlayers,
         schoolId: hostUser.schoolId,
@@ -174,6 +179,7 @@ export const createEvent = async (
       .status(201)
       .json({ message: 'Event successfully created.', event })
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }

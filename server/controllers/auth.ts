@@ -141,8 +141,5 @@ export const verifyEmail = async (
     })
   }
 
-  return res.status(200).json({
-    message: 'Email verified.',
-    user,
-  })
+  res.redirect(`${process.env.CLIENT_URL}/`)
 }

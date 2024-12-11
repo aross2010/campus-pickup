@@ -80,5 +80,6 @@ app.listen(PORT, () => {
 
 // Error Handler
 app.use((err: Error, req: Request, res: Response, next: any) => {
+  console.log(err)
   res.status(500).json({ error: err.message })
 })

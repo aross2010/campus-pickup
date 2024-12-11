@@ -100,7 +100,7 @@ model Event {
   sport       Sport
   skillLevel  SkillLevel
   location    String
-  coed        Boolean
+  coed        Boolean?   @default(false)
   school      School     @relation(fields: [schoolId], references: [id])
   schoolId    String     @db.ObjectId
   host        User       @relation("eventsHosted", fields: [hostId], references: [id])
